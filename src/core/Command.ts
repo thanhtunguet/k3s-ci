@@ -1,54 +1,58 @@
 import chalk from 'chalk';
-import {execSync} from 'child_process';
+import {execSync, ExecSyncOptionsWithStringEncoding} from 'child_process';
 import {Command as Commander} from 'commander';
 import fs from 'fs';
 import {Deployment} from 'k3s-deployment';
 import path from 'path';
 import {escape} from 'querystring';
+import {
+  GIT_BRANCH,
+  GIT_EMAIL,
+  GIT_PASSWORD,
+  GIT_REPO,
+  GIT_USERNAME,
+} from 'src/config/consts';
+import 'src/config/dotenv';
 import {checkOption} from 'src/helpers/checkOption';
 import {checkPath} from 'src/helpers/checkPath';
 import {patchImage} from 'src/helpers/patchImage';
 import {v4} from 'uuid';
 import YAML, {Document} from 'yaml';
 
+const execOptions: ExecSyncOptionsWithStringEncoding = {
+  stdio: [process.stdin, process.stdout, process.stderr],
+  encoding: 'utf-8',
+};
+
 export class Command extends Commander {
-  public workloadFile: string;
-
-  public repository: string;
-
-  public branch: string;
-
-  public gitUsername: string;
-
-  public gitPassword: string;
-
-  public gitEmail: string;
-
-  public patchCommit(commitID: string) {
+  public patchCommit(commitID: string, workloadFile: string) {
     checkPath('git');
 
-    checkOption('GIT_USERNAME', this.gitUsername);
-    checkOption('GIT_USERNAME', this.gitUsername);
-    checkOption('GIT_EMAIL', this.gitEmail);
+    checkOption(nameof(GIT_USERNAME), GIT_USERNAME);
+
+    checkOption(nameof(GIT_EMAIL), GIT_EMAIL);
+
+    checkOption(nameof(GIT_REPO), GIT_REPO);
 
     const repoPath: string = v4();
 
-    const repository: string = this.repository.replace(
+    const repository: string = GIT_REPO.replace(
       /^https:\/\//,
-      `https://${escape(this.gitUsername)}:${escape(this.gitPassword)}@`,
+      `https://${escape(GIT_USERNAME)}:${escape(GIT_PASSWORD)}@`,
     );
 
     try {
       // Clone repository
       execSync(
-        `git clone --single-branch --branch ${this.branch} ${repository} ${repoPath}`,
+        `git clone --single-branch --branch ${GIT_BRANCH} ${repository} ${repoPath}`,
+        execOptions,
       );
 
-      const workloadRealPath: string = path.join(repoPath, this.workloadFile);
+      const workloadRealPath: string = path.join(repoPath, workloadFile);
 
       if (!fs.existsSync(workloadRealPath)) {
         // eslint-disable-next-line no-console
-        console.error(chalk.red('File %s does not exist!'), this.workloadFile);
+        console.error(chalk.red('File %s does not exist!'), workloadFile);
         process.exit();
       }
 
@@ -78,17 +82,18 @@ export class Command extends Commander {
 
       process.chdir(repoPath);
 
-      execSync(`git add -A ${this.workloadFile}`);
+      execSync(`git add -A ${workloadFile}`, execOptions);
 
-      execSync('git config user.name k3s-ci');
+      execSync('git config user.name k3s-ci', execOptions);
 
-      execSync(`git config user.email ${this.gitEmail}`);
+      execSync(`git config user.email ${GIT_EMAIL}`, execOptions);
 
       execSync(
-        `git commit -m 'Patch file ${this.workloadFile} with commit ${commitID}'`,
+        `git commit -m 'Patch file ${workloadFile} with commit ${commitID}'`,
+        execOptions,
       );
 
-      execSync(`git push origin ${this.branch}`);
+      execSync(`git push origin ${GIT_BRANCH}`, execOptions);
 
       process.chdir('..');
     } catch (error) {
