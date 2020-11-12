@@ -1,7 +1,7 @@
-.git/
-node_modules/
-src/
-types/
+/.git
+/node_modules
+/src
+/types
 .gitignore
 Dockerfile
 *.yaml

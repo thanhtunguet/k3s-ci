@@ -5,7 +5,8 @@ import fs from 'fs';
 import {Deployment} from 'k3s-deployment';
 import path from 'path';
 import {escape} from 'querystring';
-import {GIT_EMAIL, GIT_PASSWORD, GIT_USERNAME} from 'src/config/consts';
+import {checkOption} from 'src/helpers/checkOption';
+import {checkPath} from 'src/helpers/checkPath';
 import {patchImage} from 'src/helpers/patchImage';
 import {v4} from 'uuid';
 import YAML, {Document} from 'yaml';
@@ -17,12 +18,24 @@ export class Command extends Commander {
 
   public branch: string;
 
+  public gitUsername: string;
+
+  public gitPassword: string;
+
+  public gitEmail: string;
+
   public patchCommit(commitID: string) {
+    checkPath('git');
+
+    checkOption('GIT_USERNAME', this.gitUsername);
+    checkOption('GIT_USERNAME', this.gitUsername);
+    checkOption('GIT_EMAIL', this.gitEmail);
+
     const repoPath: string = v4();
 
     const repository: string = this.repository.replace(
       /^https:\/\//,
-      `https://${escape(GIT_USERNAME)}:${escape(GIT_PASSWORD)}@`,
+      `https://${escape(this.gitUsername)}:${escape(this.gitPassword)}@`,
     );
 
     try {
@@ -69,7 +82,7 @@ export class Command extends Commander {
 
       execSync('git config user.name k3s-ci');
 
-      execSync(`git config user.email ${GIT_EMAIL}`);
+      execSync(`git config user.email ${this.gitEmail}`);
 
       execSync(
         `git commit -m 'Patch file ${this.workloadFile} with commit ${commitID}'`,

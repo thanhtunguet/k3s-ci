@@ -2,13 +2,13 @@ import program from 'commander';
 import packageInfo from 'package.json';
 import 'src/config/dotenv';
 import {Command} from 'src/core/Command';
-import {checkPath} from 'src/helpers/checkPath';
-
-checkPath('git');
+import {GIT_EMAIL, GIT_PASSWORD, GIT_USERNAME} from './config/consts';
 
 Object.setPrototypeOf(program, Command.prototype);
 
 program.version(packageInfo.version);
+
+program.description('Simple CI tool for k3s');
 
 program
   .option(
@@ -20,10 +20,13 @@ program
     'Repository URL',
   )
   .option(
-    `-b, --branch <${Command.prototype.branch}>`,
+    `-b, --branch <${nameof(Command.prototype.branch)}>`,
     'Branch to clone',
     'master',
   )
+  .option('-u, --username', 'Git username', GIT_USERNAME)
+  .option('-p, --password', 'Git password', GIT_PASSWORD)
+  .option('-e, --email', 'Git email', GIT_EMAIL)
   .command('patch <commitID>')
   .action(program.patchCommit.bind(program));
 

@@ -1,0 +1,12 @@
+.cache
+node_modules/
+src/
+types/
+.dockerignore
+.eslintrc.js
+.prettierrc.js
+yarn.lock
+*.log
+*.yaml
+webpack.config.js
+tsconfig.json
