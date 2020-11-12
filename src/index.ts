@@ -24,9 +24,21 @@ program
     'Branch to clone',
     'master',
   )
-  .option('-u, --username', 'Git username', GIT_USERNAME)
-  .option('-p, --password', 'Git password', GIT_PASSWORD)
-  .option('-e, --email', 'Git email', GIT_EMAIL)
+  .option(
+    `-u, --username <${nameof(Command.prototype.gitUsername)}>`,
+    'Git username',
+    GIT_USERNAME,
+  )
+  .option(
+    `-p, --password <${nameof(Command.prototype.gitPassword)}>`,
+    'Git password',
+    GIT_PASSWORD,
+  )
+  .option(
+    `-e, --email <${nameof(Command.prototype.gitEmail)}>`,
+    'Git email',
+    GIT_EMAIL,
+  )
   .command('patch <commitID>')
   .action(program.patchCommit.bind(program));
 
