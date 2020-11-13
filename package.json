@@ -1,6 +1,6 @@
 {
   "name": "k3s-ci",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "K3S CI/CD",
   "main": "./dist/index.js",
   "repository": "https://github.com/thanhtunguet/k3s-ci",

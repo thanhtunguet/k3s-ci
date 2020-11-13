@@ -81,19 +81,17 @@ export class Command extends Commander {
       fs.writeFileSync(workloadRealPath, result);
 
       process.chdir(repoPath);
-
       execSync(`git add -A ${workloadFile}`, execOptions);
 
-      execSync('git config user.name k3s-ci', execOptions);
-
-      execSync(`git config user.email ${GIT_EMAIL}`, execOptions);
-
-      execSync(
-        `git commit -m 'Patch file ${workloadFile} with commit ${commitID}'`,
-        execOptions,
-      );
-
-      execSync(`git push origin ${GIT_BRANCH}`, execOptions);
+      if (execSync('git status --porcelain')) {
+        execSync('git config user.name k3s-ci', execOptions);
+        execSync(`git config user.email ${GIT_EMAIL}`, execOptions);
+        execSync(
+          `git commit -m 'Patch file ${workloadFile} with commit ${commitID}'`,
+          execOptions,
+        );
+        execSync(`git push origin ${GIT_BRANCH}`, execOptions);
+      }
 
       process.chdir('..');
     } catch (error) {
