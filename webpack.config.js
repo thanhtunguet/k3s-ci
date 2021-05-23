@@ -40,12 +40,12 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.node', '.json'],
     modules: [
-      path.resolve(__dirname, 'node_modules'),
       path.resolve(__dirname, '.'),
+      path.resolve(__dirname, 'node_modules'),
     ],
     alias: {
-      'package.json': path.resolve(__dirname, 'package.json'),
       src: path.resolve(__dirname, 'src'),
+      'package.json': path.resolve(__dirname, 'package.json'),
     },
   },
   target: 'node',

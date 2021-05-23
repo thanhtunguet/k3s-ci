@@ -13,9 +13,9 @@ import {
   GIT_USERNAME,
 } from 'src/config/consts';
 import 'src/config/dotenv';
-import {checkOption} from 'src/helpers/checkOption';
-import {checkPath} from 'src/helpers/checkPath';
-import {patchImage} from 'src/helpers/patchImage';
+import {checkOption} from 'src/helpers/check-option';
+import {checkPath} from 'src/helpers/check-path';
+import {patchImage} from 'src/helpers/patch-image';
 import {v4} from 'uuid';
 import YAML, {Document} from 'yaml';
 

@@ -1040,16 +1040,6 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz#e42b1bef12d2415411519fd528e64b593b1363dc"
   integrity sha512-W/J0fNYVO01tioHjvYWQ9m6RgndVtbElzYozBq1ZPrHO/iCzlqoySHl4gO/fpCl9QEFjvJfjPgtPMTMlsoq5DQ==
 
-"@react3l/cli@^1.0.1":
-  version "1.0.1"
-  resolved "https://npm.pkg.github.com/download/@react3l/cli/1.0.1/5bf750d75f9122c305870d1ab666d6db327370ed2cc301051f2170fc513cbd4f#d724a001c61e7801fb6f10413bbce2f4b994094a"
-  integrity sha512-FlI3o7y3MyE5AJ3ARj0wKYTr0KyRWRopquZDaMnPHnnpETZBP2rYlZZYQgXGiOkaVseSDjX6lF1jD7nCmg7fWw==
-  dependencies:
-    commander "^6.1.0"
-    lodash "^4.17.20"
-    moment "^2.27.0"
-    source-map-support "^0.5.19"
-
 "@ts-nameof/common@^4.2.0":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@ts-nameof/common/-/common-4.2.1.tgz#76e6ab5b4a11c92b2a2a79bf133ae49b57d7efc3"
@@ -2308,7 +2298,7 @@ commander@^5.0.0, commander@^5.1.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
   integrity sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
 
-commander@^6.1.0, commander@^6.2.0:
+commander@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.0.tgz#b990bfb8ac030aedc6d11bc04d1488ffef56db75"
   integrity sha512-zP4jEKbe8SHzKJYQmq8Y9gYjtO/POJLgIdKgV7B9qNmABVFVc+ctqSX6iXh4mCpJfRBOabiZ2YKPg8ciDw6C+Q==
@@ -4673,7 +4663,7 @@ mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moment@^2.24.0, moment@^2.25.3, moment@^2.27.0:
+moment@^2.24.0, moment@^2.25.3:
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
